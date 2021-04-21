@@ -28,9 +28,9 @@ module.exports = (env) => {
         },
         resolve: {
             extensions: ['.ts', '.html'],
-            alias: {
-                'knockout': path.resolve('./node_modules/knockout')
-            }
+        },
+        externals: {
+            knockout: 'knockout',
         },
         output: {
             path: path.join(__dirname, bundleOutputDir),
