@@ -1,4 +1,4 @@
-﻿import { Pagination, IPaginationParameters } from "src/pagination";
+﻿import { Pagination, IPaginationParameters } from "../src/pagination/pagination";
 import * as ko from "knockout";
 
 describe("Pagination tests.", () => {

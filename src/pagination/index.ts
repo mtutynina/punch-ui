@@ -1,13 +1,11 @@
-﻿import { IPaginationParameters, Pagination } from "src/pagination/pagination";
+﻿import { IPaginationParameters, Pagination } from "./pagination";
 import * as ko from "knockout";
 
-export { IPaginationParameters, Pagination } from "src/pagination/pagination";
-
-export function registerPaginationComponent() {
+export function registerPaginationComponent(): void {
     ko.components.register("pagination", {
         viewModel: {
             createViewModel: (params: IPaginationParameters) => new Pagination(params),
         },
-        template: require("src/pagination/pagination.html"),
+        template: require("./pagination.html"),
     });
 }

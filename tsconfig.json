@@ -1,7 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "noEmit": true,
+    "declaration": true,
+    "outDir": "out/",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "removeComments": false,
@@ -18,14 +19,13 @@
     "typeRoots": [ "./node_modules/@types"],
     "sourceRoot": ".",
     "baseUrl": ".",
-    "rootDir": ".",
-    "paths": {
-      "src/*": [ "src/*" ],
-      "tests/*": [ "tests/*" ]
-    }
+    "rootDir": "."
   },
   "exclude": [
+    "dist/index.d.ts",
     "node_modules",
-    "wwwroot"
+    "wwwroot",
+    "out/**/*.d.ts",
+    "tests"
   ]
 }

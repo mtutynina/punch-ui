@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { getCookieByName } from "src/shared/helpers";
+import { getCookieByName } from "../shared/helpers";
 
 export interface IPaginationParameters {
     skipPages?: ko.Observable<number>;

@@ -1,1 +1,1 @@
-﻿export { registerPaginationComponent } from "src/pagination";
+﻿export { registerPaginationComponent } from "./pagination";
