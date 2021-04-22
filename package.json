@@ -16,7 +16,7 @@
     "url": "git+https://github.com/mtutynina/punch-ui.git"
   },
   "author": "Mariya Tutynina",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mtutynina/punch-ui/issues"
   },
@@ -24,7 +24,8 @@
   "files": [
     "dist/punch-ui.js",
     "dist/index.d.ts",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "jest": {
     "collectCoverage": true,
