@@ -147,7 +147,7 @@ export class Pagination {
         });
     }
 
-    public moveToPage(pageNumber: number) {
+    public moveToPage(pageNumber: number): void {
         if (!this.isChangePageBlockActive()) {
             return;
         }
@@ -157,7 +157,7 @@ export class Pagination {
         this.currentPage(pageNumber);
     }
 
-    public moveNext() {
+    public moveNext(): void {
         if (!this.isMoveNextBTNActive()) {
             return;
         }
@@ -166,7 +166,7 @@ export class Pagination {
         this.moveToPage(nextPage);
     }
 
-    public movePrev() {
+    public movePrev(): void {
         if (!this.isMovePrevBTNActive()) {
             return;
         }
