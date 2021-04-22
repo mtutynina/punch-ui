@@ -1,6 +1,6 @@
 language: node_js
 git:
-  autocrlf: false
+  autocrlf: true
 cache:
   directories:
     - node_modules
