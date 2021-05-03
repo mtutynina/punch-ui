@@ -1,26 +1,38 @@
 ﻿<div class="row">
     <div class="col-6 text-start">
-        <select data-bind="options: pageSizeList, value: pageSize" class="d-inline-block form-select me-2 w-auto"></select>
-        <div data-bind="text: showingCaption" class="d-inline-block fw-bold text-primary"></div>
+        <select data-bind="options: pageSizeList, value: pageSize, css: { 'form-select-sm': useSmallSize }"
+                class="d-inline-block form-select me-2 w-auto"></select>
+        <div data-bind="text: showingCaption, css: { 'small': useSmallSize}"
+             class="d-inline-block fw-bold text-primary"></div>
     </div>
     <div class="col-6">
         <!-- ko if: isChangePageBlockActive -->
-        <ul class="pagination justify-content-end">
-            <li class="page-item me-2" data-bind="css: {'disabled': isMovePrevBTNActive() === false}">
-                <span data-bind="click: movePrev" class="page-link px-0 bg-transparent">
-                    <i class="material-icons chevron_left fs-3"></i>
+        <ul class="pagination justify-content-end" data-bind="css: { 'pagination-sm': useSmallSize }">
+            <li class="page-item" data-bind="css: {'disabled': isMovePrevBTNActive() === false}, click: movePrev">
+                <span class="page-link bg-transparent">
+                    <!-- ko ifnot: showCustomIcons -->
+                    <span aria-hidden="true">&laquo;</span>
+                    <!-- /ko -->
+                    <!-- ko if: showCustomIcons -->
+                    <i data-bind="class: iconStyles.prev"></i>
+                    <!-- /ko -->
                 </span>
             </li>
             <!-- ko foreach: pagesList -->
-            <li class="page-item me-1" data-bind="css: {
+            <li class="page-item" data-bind="css: {
                 'disabled': $parent.isChangePageBlockActive() === false,
                 'active': $data === $parent.currentPage()}">
                 <span data-bind="click: $parent.moveToPage.bind($parent, $data), text: $data" class="page-link"></span>
             </li>
             <!-- /ko -->
-            <li class="page-item ms-1" data-bind="css: {'disabled': isMoveNextBTNActive() === false}">
-                <span data-bind="click: moveNext" class="page-link bg-transparent px-0">
-                    <i class="material-icons chevron_right fs-3"></i>
+            <li class="page-item" data-bind="css: {'disabled': isMoveNextBTNActive() === false}, click: moveNext">
+                <span class="page-link bg-transparent">
+                    <!-- ko ifnot: showCustomIcons -->
+                    <span aria-hidden="true">&raquo;</span>
+                    <!-- /ko -->
+                    <!-- ko if: showCustomIcons -->
+                    <i data-bind="class: iconStyles.next"></i>
+                    <!-- /ko -->
                 </span>
             </li>
         </ul>
