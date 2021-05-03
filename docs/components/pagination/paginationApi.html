@@ -1,0 +1,161 @@
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <strong>currentPage</strong>
+            </td>
+            <td>Current page number.</td>
+            <td>
+                <code>ko.Observable&lt;number&gt; | number</code>
+            </td>
+            <td>1</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>currentPageQueryString</strong>
+            </td>
+            <td>Query string parameter name for current page. Used if <code>useQueryStringParameters</code> is set to <code>true</code></td>
+            <td>
+                <code>string</code>
+            </td>
+            <td><code>currentPage</code></td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>icons</strong>
+            </td>
+            <td>Custom icons class names for previous and next buttons.</td>
+            <td>
+                <code>{prev: string, next: string}</code>
+            </td>
+            <td>-</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>onChange</strong>
+            </td>
+            <td>Called when the page number or pageSize is changed, and it takes the resulting page number and pageSize as its arguments.</td>
+            <td>
+                <code>(page: number, pageSize: number): void</code>
+            </td>
+            <td>-</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>pageSize</strong>
+            </td>
+            <td>Default number of data items per page.</td>
+            <td>
+                <code>ko.Observable&lt;number&gt; | number</code>
+            </td>
+            <td>10</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>pageSizeCookieName</strong>
+            </td>
+            <td>
+                Cookie name to store selected page size across application.
+                Will be used if <code>useCookieForPageSize</code> property is set to <code>true</code>
+            </td>
+            <td>
+                <code>string</code>
+            </td>
+            <td class="text-black"><code>pageSize</code></td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>pageSizeOptions</strong>
+            </td>
+            <td>
+                Specify the sizeChanger options.
+            </td>
+            <td>
+                <code>number[]</code>
+            </td>
+            <td class="text-black"><code>[10, 20, 30, 40, 50]</code></td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>pageSizeQueryString</strong>
+            </td>
+            <td>Query string parameter name for page size. Used if <code>useQueryStringParameters</code> is set to <code>true</code></td>
+            <td>
+                <code>string</code>
+            </td>
+            <td><code>currentPage</code></td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>size</strong>
+            </td>
+            <td>Specify the size of Pagination, can be set to small.</td>
+            <td>
+                <code>"default" | "small"</code>
+            </td>
+            <td><code>default</code></td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>totalItems</strong>
+            </td>
+            <td>Total number of data items.</td>
+            <td>
+                <code>ko.Observable&lt;number&gt; | number</code>
+            </td>
+            <td>0</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>useCookieForPageSize</strong>
+            </td>
+            <td>Indicates whether should store page size in cookies and use stored value as default.</td>
+            <td>
+                <code>boolean</code>
+            </td>
+            <td>false</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>useQueryStringParameters</strong>
+            </td>
+            <td>Indicates whether should get values and update query string parameters for page size and current page.</td>
+            <td>
+                <code>boolean</code>
+            </td>
+            <td>false</td>
+            <td>1.0.6</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>visiblePagesCount</strong>
+            </td>
+            <td>Maximum count of buttons to switch current page.</td>
+            <td>
+                <code>number</code>
+            </td>
+            <td>5</td>
+            <td>1.0.6</td>
+        </tr>
+    </tbody>
+</table>

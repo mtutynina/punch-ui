@@ -2,7 +2,7 @@ title: Punch UI
 email: m.tutynina@list.ru
 description: >-
   Punch UI is simple components library based on KnockoutJS and Bootstrap 5.
-baseurl: "punch-ui"
+baseurl: "/punch-ui"
 # url: "https://mtutynina.github.io/punch-ui"
 github_username:  mtutynina
 

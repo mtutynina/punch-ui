@@ -1,0 +1,16 @@
+// docs theme override
+.main-content ul.pagination > li::before {
+    content: none;
+}
+
+@media (min-width: 50rem) {
+    .side-bar {
+        max-width: 264px;
+    }
+
+    .main {
+        margin-left: 300px;
+        width: calc(100vw - 300px - 24px);
+        max-width: 1300px;
+    }
+}
