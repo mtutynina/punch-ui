@@ -1,13 +1,26 @@
 ﻿import * as ko from "knockout";
+import { getConfiguration, PaginationIcons, PaginationSize } from "../shared/config";
 import { getCookieByName } from "../shared/helpers";
 
 export interface IPaginationParameters {
-    skipPages?: ko.Observable<number>;
-    totalItems?: ko.Observable<number>;
-    initialTotalItems?: number;
-    pageSize?: ko.Observable<number>;
-    onskipPagesChanged?(skipPages: number): void;
-    onPageSizeChanged?(pageSize: number): void;
+    currentPage?: ko.Observable<number> | number;
+    currentPageQueryString?: string;
+    icons?: PaginationIcons;
+    onChange?(page: number, pageSize: number): void;
+    pageSize?: ko.Observable<number> | number;
+    pageSizeCookieName?: string;
+    pageSizeOptions?: number[];
+    pageSizeQueryString?: string;
+    size?: PaginationSize;
+    totalItems?: ko.Observable<number> | number;
+    useCookieForPageSize?: boolean;
+    useQueryStringParameters?: boolean;
+    visiblePagesCount?: number;
+}
+
+interface QueryParameter {
+    name: string;
+    value: string;
 }
 
 export class Pagination {
@@ -32,11 +45,6 @@ export class Pagination {
     public pagesList: ko.Computed<number[]>;
 
     /**
-     * Count of pages to skip.
-     */
-    public skipPages: ko.Observable<number>;
-
-    /**
      * Indicates whether change page block is active.
      */
     public isChangePageBlockActive: ko.Computed
@@ -59,51 +67,45 @@ export class Pagination {
     /**
      * Available page sizes.
      */
-    public pageSizeList = [10, 20, 30, 40, 50];
+    public pageSizeList: number[];
+
+    /**
+     * Indicates whether should show customized icons for previous and next buttons.
+     */
+    public showCustomIcons: boolean;
+
+    /**
+     * Class names set for prevoius and next buttons.
+     */
+    public iconStyles: PaginationIcons | null;
+
+    /**
+     * Indicates whether should use small size for component.
+     */
+    public useSmallSize: boolean;
+
+    private useCookieForPageSize: boolean;
+
+    private useQueryString: boolean;
 
     constructor(private params: IPaginationParameters) {
-        const skipPagesInitial = this.getInitialSkipPagesValue();
-        const currentPage = skipPagesInitial + 1;
-        this.currentPage = ko.observable(currentPage);
-        this.skipPages = ko.observable(skipPagesInitial);
-        if (params.skipPages) {
-            params.skipPages.subscribe((newValue) => {
-                if (newValue !== this.skipPages()) {
-                    this.skipPages(newValue);
-                    this.currentPage(newValue + 1);
-                }
-            });
-        }
-
-        this.skipPages.subscribe((newValue) => {
-            if (params.onskipPagesChanged) {
-                params.onskipPagesChanged(newValue);
-                return;
-            }
-
-            this.updateSearchParams("pageSkip", newValue.toString());
-        });
-        if (params.totalItems) {
-            this.totalItems = params.totalItems;
-        } else {
-            const totalItems = params.initialTotalItems ? params.initialTotalItems : 0;
-            this.totalItems = ko.observable(totalItems);
-        }
-
-        const initialPageSize = this.getInitialPageSize();
-        this.pageSize = ko.observable(initialPageSize);
+        const config = getConfiguration().pagination;
+        this.useCookieForPageSize = params.useCookieForPageSize
+            || (typeof params.useCookieForPageSize === "undefined" && config.useCookieForPageSize);
+        this.useQueryString = params.useQueryStringParameters
+            || (typeof params.useQueryStringParameters === "undefined" && config.useQueryStringParameters);
+        this.pageSizeList = params.pageSizeOptions ?? config.pageSizeOptions;
+        this.iconStyles = params.icons ?? config.icons ?? null;
+        this.showCustomIcons = this.iconStyles !== null;
+        const size = params.size ?? config.size;
+        this.useSmallSize = size === "small";
+        this.currentPage = this.getInitialCurrentPage();
+        this.totalItems = this.getTotalItemsProperty();
+        this.pageSize = this.getInitialPageSize();
         this.pageSize.subscribe((newValue) => {
-            document.cookie = `pageSize=${newValue};path=/;`;
-
-            if (params.onPageSizeChanged) {
-                params.onPageSizeChanged(newValue);
-                return;
-            }
-
-            this.updateSearchParams("pageSize", newValue.toString());
-            this.updateSearchParams("pageSkip", "0");
+            this.onPageSizeChanged(newValue);
         });
-        const visiblePagesCount = 5;
+        const visiblePagesCount = params.visiblePagesCount ?? config.visiblePagesCount;
         this.pagesList = ko.computed(() => {
             return this.getPagesList(this.totalItems(), this.pageSize(), this.currentPage(), visiblePagesCount);
         });
@@ -152,9 +154,8 @@ export class Pagination {
             return;
         }
 
-        const skipPages = pageNumber - 1;
-        this.skipPages(skipPages);
         this.currentPage(pageNumber);
+        this.onCurrentPageChanged(pageNumber);
     }
 
     public moveNext(): void {
@@ -192,9 +193,12 @@ export class Pagination {
         return pages;
     }
 
-    private updateSearchParams(paramName: string, paramValue: string) {
+    private updateSearchParams(params: QueryParameter[]) {
         const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set(paramName, paramValue);
+        for (const param of params) {
+            queryParams.set(param.name, param.value);
+        }
+
         const spinner = document.getElementById("loading");
         if (spinner) {
             spinner.classList.remove("d-none");
@@ -205,43 +209,110 @@ export class Pagination {
         window.location.href = `${window.location.pathname}?${query}`;
     }
 
-    private getSearchParam(paramName: string) {
+    private getNumericalSearchParam(paramName: string): number | null {
         const queryParams = new URLSearchParams(window.location.search);
         const value = queryParams.get(paramName);
-        return value;
+        if (value) {
+            const numValue = parseInt(value, 10);
+            if (numValue) {
+                return numValue;
+            }
+
+            return null;
+        }
+
+        return null;
     }
 
-    private getInitialSkipPagesValue() {
-        let skipPagesInitial = 0;
-        const searchQuerySkipPages = this.getSearchParam("pageSkip");
-        if (searchQuerySkipPages && !this.params.skipPages) {
-            skipPagesInitial = parseInt(searchQuerySkipPages, 10);
+    private getInitialCurrentPage(): ko.Observable<number> {
+        const config = getConfiguration().pagination;
+        const params = this.params;
+        if (this.useQueryString) {
+            const queryName = params.currentPageQueryString ?? config.currentPageQueryString;
+            const currentPage = this.getNumericalSearchParam(queryName);
+            if (currentPage) {
+                return ko.observable(currentPage);
+            }
         }
 
-        if (this.params.skipPages) {
-            skipPagesInitial = this.params.skipPages();
+        if (ko.isObservable(params.currentPage)) {
+            return params.currentPage;
         }
 
-        return skipPagesInitial;
+        const currentPage = config.initialCurrentPage;
+        return ko.observable(currentPage);
     }
 
-    private getInitialPageSize() {
-        let pageSize = 10;
-        const storedPageSize = getCookieByName("pageSize");
-        if (storedPageSize) {
-            return parseInt(storedPageSize, 10);
+    private getInitialPageSize(): ko.Observable<number> {
+        const config = getConfiguration().pagination;
+        const params = this.params;
+        if (this.useQueryString) {
+            const queryName = params.pageSizeQueryString ?? config.pageSizeQueryString;
+            const pageSize = this.getNumericalSearchParam(queryName);
+            if (pageSize) {
+                return ko.observable(pageSize);
+            }
         }
 
-        const searchQuery = this.getSearchParam("pageSize");
-
-        if (searchQuery && !this.params.pageSize) {
-            pageSize = parseInt(searchQuery, 10);
+        if (this.useCookieForPageSize) {
+            const cookieName = params.pageSizeCookieName ?? config.pageSizeCookieName;
+            const storedPageSize = getCookieByName(cookieName);
+            if (storedPageSize) {
+                const pageSize = parseInt(storedPageSize, 10);
+                return ko.observable(pageSize);
+            }
         }
 
-        if (this.params.pageSize) {
-            pageSize = this.params.pageSize();
+        if (ko.isObservable(params.pageSize)) {
+            return params.pageSize;
         }
 
-        return pageSize;
+        const pageSize = config.pageSize;
+        return ko.observable(pageSize);
+    }
+
+    private getTotalItemsProperty(): ko.Observable<number> {
+        if (!this.params.totalItems) {
+            return ko.observable(0);
+        }
+
+        if (ko.isObservable(this.params.totalItems)) {
+            return this.params.totalItems;
+        }
+
+        return ko.observable(this.params.totalItems);
+    }
+
+    private onCurrentPageChanged(currentPage: number) {
+        const params = this.params;
+        if (params.onChange) {
+            const pageSize = this.pageSize();
+            params.onChange(currentPage, pageSize);
+        }
+
+        if (this.useQueryString) {
+            const config = getConfiguration().pagination;
+            this.updateSearchParams([{ name: config.currentPageQueryString, value: currentPage.toString() }]);
+        }
+    }
+
+    private onPageSizeChanged(pageSize: number) {
+        const params = this.params;
+        const config = getConfiguration().pagination;
+        if (this.useCookieForPageSize) {
+            document.cookie = `${config.pageSizeCookieName}=${pageSize};path=/;`;
+        }
+
+        if (params.onChange) {
+            this.currentPage(config.initialCurrentPage);
+            params.onChange(config.initialCurrentPage, pageSize);
+        }
+
+        if (this.useQueryString) {
+            this.updateSearchParams([
+                { name: config.pageSizeQueryString, value: pageSize.toString() },
+                { name: config.currentPageQueryString, value: config.initialCurrentPage.toString() },
+            ]);
+        }
     }
 }
