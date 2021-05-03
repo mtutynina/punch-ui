@@ -1,7 +1,4 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 title: Home
 nav-order: 1
@@ -37,7 +34,7 @@ Below is the default directory structure
 |---package.json
 |---LICENSE
 ```
-
+### Register components
 Then somewhere in your app, before you call ```ko.applyBindings()``` , you should register components.
 You can register all Punch UI components at ones with ```registerComponents()``` or each one you need separately.
 Registration instructions for each component will be presented in components documentation.
