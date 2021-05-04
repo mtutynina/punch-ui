@@ -35,3 +35,21 @@ Punch UI documentation, included in this repo in the docs directory, is built wi
 ## Examples
 Visit [examples repository](https://github.com/mtutynina/PunchUIExamples) to see all available use cases.
 
+## Project structure and source code
+### Components
+The source code of each component is located in a separate component folder in the `src` directory. Component folder consist of following files:
+1. `component-name.ts` - Component's specific logic.
+2. `component-name.html` - Component's html template.
+3. `component-name.css` - Component's specific styles (Not required).
+4. `index.ts` - Register new knockout component here.  
+
+Example:
+```
+|---src
+|   |---pagination
+|      |---index.ts
+|      |---pagination.html
+|      |---pagination.ts
+```
+
+
