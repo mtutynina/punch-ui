@@ -8,6 +8,15 @@ Punch UI [![npm][npm-image]][npm-url] [![Build Status][build-image]][build-url]
 
 **Punch** UI is collection of UI components based on **KnockoutJS** and **Bootstrap 5**. Components can be used as part of your Knockout SPA application or as part of Razor Pages to improve your UI.
 
+## Components list
+- [Pagination](https://mtutynina.github.io/punch-ui/components/pagination.html)
+
+### In the pipeline
+- Table spinner
+- Page spinner
+- Date picker
+- Select box
+
 ## Quick start
 Install Punch UI with npm `npm install punch-ui`
 
@@ -51,5 +60,23 @@ Example:
 |      |---pagination.html
 |      |---pagination.ts
 ```
+### Tests
+#### Jest
+In test folder you can find tests setted up with jest. Run in terminal from root folder `npm run test`
+#### Example Project
+You can check component in action by implementing new component usage inside [project with examples](https://github.com/mtutynina/PunchUIExamples)  
+To check local changes that are not in npm use `npm link`:  
+```
+cd punch-ui
+npm link
+npm run build
+cd ../PunchUIExamples/PunchUIExamples
+npm link punch-ui
+npm run build
+```
+### Scripts
+`npm run build` - Packs bundles with webpack  
+`npm run test` - Runs tests  
+`npm run lint` - Analyzes code style using eslint rules  
 
 
