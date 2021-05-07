@@ -1,5 +1,6 @@
 ﻿import * as ko from "knockout";
-import { getConfiguration, PaginationIcons, PaginationSize } from "../shared/config";
+import { getConfiguration } from "../shared/config";
+import { PaginationIcons, PaginationSize } from "../shared/config/pagination";
 import { getCookieByName } from "../shared/helpers";
 
 export interface IPaginationParameters {
