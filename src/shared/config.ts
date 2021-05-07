@@ -1,4 +1,4 @@
-﻿import { PaginationConfiguration, PaginationConfigurationOverride } from "src/shared/config/pagination";
+﻿import { PaginationConfiguration, PaginationConfigurationOverride } from "./config/pagination";
 
 export interface ComponentsConfigurationOverride {
     // eslint-disable-next-line lines-around-comment
