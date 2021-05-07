@@ -1,7 +1,6 @@
 ﻿const path = require('path');
 const bundleOutputDir = './dist';
 const libraryName = "punch-ui";
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 const dts = require('dts-bundle');
 
@@ -15,13 +14,14 @@ DtsBundlePlugin.prototype.apply = (compiler) => {
             main: 'out/src/index.d.ts',
             out: '../../dist/index.d.ts',
             removeSource: false,
-            outputAsModuleFolder: true
+            outputAsModuleFolder: true,
         });
     });
 };
 
 module.exports = (env) => {
     return [{
+        target: 'web',
         stats: { modules: false },
         entry: {
             'punch-ui': './src/index',
@@ -30,6 +30,7 @@ module.exports = (env) => {
             extensions: ['.ts', '.html'],
         },
         externals: {
+            knockout: 'ko',
             knockout: 'knockout',
         },
         output: {
@@ -38,10 +39,11 @@ module.exports = (env) => {
             publicPath: 'dist/',
             library: {
                 root: "PunchUI",
-                amd: 'punch-ui',
-                commonjs: 'punch-ui',
+                amd: 'PunchUI',
+                commonjs: 'PunchUI',
             },
             libraryTarget: "umd",
+            globalObject: 'this',
             umdNamedDefine: true   
         },
         module: {
@@ -57,11 +59,10 @@ module.exports = (env) => {
                         },
                     ],
                 },
-                { test: /\.ts?$/, use: 'awesome-typescript-loader?silent=true' },
+                { test: /\.ts?$/, use: 'ts-loader?silent=true' },
             ]
         },
         plugins: [
-            new CheckerPlugin(),
             new DtsBundlePlugin(),
         ],
     }];

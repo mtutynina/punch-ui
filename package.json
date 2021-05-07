@@ -1,11 +1,12 @@
 {
   "name": "punch-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "UI Components for KnockoutJS",
   "main": "dist/punch-ui",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "prepublish": "npm run webpack-prod && npm run lint && npm run test",
     "webpack": "webpack --mode=development",
     "webpack-prod": "webpack --mode=production",
     "build": "npm run webpack",
@@ -48,21 +49,21 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.41",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "awesome-typescript-loader": "^5.2.1",
+    "@types/jest": "26.0.23",
+    "@types/node": "14.14.44",
+    "@typescript-eslint/eslint-plugin": "4.22.1",
+    "@typescript-eslint/parser": "4.22.1",
     "dts-bundle": "^0.7.3",
-    "eslint": "^7.24.0",
+    "eslint": "7.25.0",
     "eslint-config-typescript-strict": "^1.0.1",
     "jest": "^26.6.3",
     "node": "^15.14.0",
     "raw-loader": "^4.0.2",
-    "ts-jest": "^26.5.5",
+    "ts-loader": "^9.1.2",
+    "ts-jest": "26.5.6",
     "typescript": "^4.2.4",
-    "webpack": "^5.34.0",
-    "webpack-cli": "^4.6.0"
+    "webpack": "5.36.2",
+    "webpack-cli": "4.7.0"
   },
   "dependencies": {
     "knockout": "^3.5.1"
