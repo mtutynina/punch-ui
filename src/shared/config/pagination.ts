@@ -1,4 +1,4 @@
-export interface PaginationIcons {
+﻿export interface PaginationIcons {
     prev: string;
     next: string;
 }
@@ -6,6 +6,7 @@ export interface PaginationIcons {
 export type PaginationSize = "default" | "small";
 
 export interface PaginationConfigurationOverride {
+    // eslint-disable-next-line lines-around-comment
     /**
      * Specify the sizeChanger options.
      * Default: [10, 20, 30, 40, 50].
@@ -76,6 +77,7 @@ export interface PaginationConfigurationOverride {
 }
 
 export interface PaginationConfiguration {
+    // eslint-disable-next-line lines-around-comment
     /**
      * Specify the sizeChanger options.
      * Default: [10, 20, 30, 40, 50].

@@ -1,6 +1,7 @@
 ﻿import { PaginationConfiguration, PaginationConfigurationOverride } from "src/shared/config/pagination";
 
 export interface ComponentsConfigurationOverride {
+    // eslint-disable-next-line lines-around-comment
     /**
      * Pagination component configuration.
      */
@@ -8,6 +9,7 @@ export interface ComponentsConfigurationOverride {
 }
 
 interface ComponentsConfiguration {
+    // eslint-disable-next-line lines-around-comment
     /**
      * Pagination component configuration.
      */
@@ -35,8 +37,8 @@ export function getConfiguration(): ComponentsConfiguration {
 
 export function overrideConfiguration(override: ComponentsConfigurationOverride): void {
     const newConfig = config;
-    for (let key in override) {
-        const newValue = { ...newConfig[key], ...override[key]}
+    for (const key in override) {
+        const newValue = { ...newConfig[key], ...override[key] };
         newConfig[key] = newValue;
     }
 
