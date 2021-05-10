@@ -9,7 +9,6 @@ describe("Pagination tests.", () => {
             const totalItems = ko.observable(26);
             const currentPage = ko.observable(1);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 pageSize,
                 totalItems,
                 currentPage,
@@ -28,7 +27,6 @@ describe("Pagination tests.", () => {
             const totalItems = ko.observable(26);
             const currentPage = ko.observable(1);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 currentPage,
                 pageSize,
                 totalItems,
@@ -49,7 +47,6 @@ describe("Pagination tests.", () => {
             const currentPage = ko.observable(1);
             const totalItems = ko.observable(26);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 currentPage,
                 pageSize,
                 totalItems,
@@ -70,7 +67,6 @@ describe("Pagination tests.", () => {
             const currentPage = ko.observable(1);
             const totalItems = ko.observable(8);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 currentPage,
                 pageSize,
                 totalItems,
@@ -89,7 +85,6 @@ describe("Pagination tests.", () => {
             const currentPage = ko.observable(1);
             const totalItems = ko.observable(0);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 currentPage,
                 pageSize,
                 totalItems,
@@ -105,7 +100,6 @@ describe("Pagination tests.", () => {
             const currentPage = ko.observable(1);
             const totalItems = ko.observable(10);
             const params: IPaginationParameters = {
-                onChange: (page: number, pageSize: number) => { return; },
                 currentPage,
                 pageSize,
                 totalItems,

@@ -9,8 +9,9 @@ notifications:
 node_js:
   - 14
 script:
+  - npm run build
   - npm run test
   - npm run lint
-  - npm run build
+  - npm run lint-test
 after_success:
   - npm run report-coverage

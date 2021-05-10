@@ -1,17 +1,17 @@
 {
   "name": "punch-ui",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "UI Components for KnockoutJS",
   "main": "dist/punch-ui",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "prepare ": "npm run webpack-prod",
-    "prepublishOnly": "npm run lint && npm run test",
+    "prepublishOnly": "npm run webpack-prod && npm run lint && npm run test",
     "webpack": "webpack --mode=development",
     "webpack-prod": "webpack --mode=production",
     "build": "npm run webpack",
-    "lint": "eslint --ext ts src/"
+    "lint": "eslint --ext ts src/",
+    "lint-test": "eslint --ext ts tests/"
   },
   "repository": {
     "type": "git",

@@ -1,20 +1,20 @@
-import { ComponentsConfigurationOverride, getConfiguration, overrideConfiguration } from "../src/shared/config";
+﻿import { ComponentsConfigurationOverride, getConfiguration, overrideConfiguration } from "../src/shared/config";
 import "jest";
 
 describe("Configuration override.", () => {
     it("Override pagination.", () => {
         // Arrange
-        var override: ComponentsConfigurationOverride = {
+        const override: ComponentsConfigurationOverride = {
             pagination: {
                 pageSizeOptions: [5, 2],
             },
         };
 
-        // Act 
+        // Act
         overrideConfiguration(override);
 
-        // Assert 
-        var expected = {
+        // Assert
+        const expected = {
             pageSizeOptions: [5, 2],
             pageSize: 10,
             useCookieForPageSize: false,
@@ -27,14 +27,13 @@ describe("Configuration override.", () => {
             visiblePagesCount: 5,
         };
 
-        var actual = getConfiguration().pagination;
-        console.log(actual);
+        const actual = getConfiguration().pagination;
 
         expect(expected).toEqual(actual);
     });
     it("Override nested object.", () => {
         // Arrange
-        var override: ComponentsConfigurationOverride = {
+        const override: ComponentsConfigurationOverride = {
             pagination: {
                 pageSizeOptions: [5, 2],
                 icons: {
@@ -44,11 +43,11 @@ describe("Configuration override.", () => {
             },
         };
 
-        // Act 
+        // Act
         overrideConfiguration(override);
 
-        // Assert 
-        var expected = {
+        // Assert
+        const expected = {
             pageSizeOptions: [5, 2],
             pageSize: 10,
             useCookieForPageSize: false,
@@ -65,9 +64,7 @@ describe("Configuration override.", () => {
             },
         };
 
-        var actual = getConfiguration().pagination;
-        console.log(actual);
-
+        const actual = getConfiguration().pagination;
         expect(expected).toEqual(actual);
     });
 });
