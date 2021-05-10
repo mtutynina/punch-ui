@@ -10,6 +10,9 @@ parent: Components
 A long list can be divided into several pages using Pagination, and only one page will be loaded at a time.
 </p>
 
+1. TOC
+{:toc}
+
 ## Registration
 Paginantion could be registered with [all components](/punch-ui/#register-components) at same time or individually:
 ```js
@@ -22,6 +25,16 @@ function bootstrap() {
     ko.applyBindings(app);
 }
 ```
+### Component name
+Default component name is `pagination`, but you can name it whatever you want, just pass your component name to registration function: 
+```js
+registerPaginationComponent("my-pagination");
+```
+or when registering all components:
+```js
+registerComponents({ paginationComponentName: "my-pagination" });
+```
+
 ## Examples
 ### Basic pagination
 To use the basic pagination specify `totalItems` and `onChange` handler.
@@ -58,7 +71,45 @@ To show more pages specify `visiblePagesCount` parameter.
 ```html
 <pagination params="{ totalItems: 100, onChange: onChange, visiblePagesCount: 10 }"></pagination>
 ```
+## Razor Pages
+You can use pagination inside .Net Razor Pages. Selected `pageSize` and `currentPage` values could be bound to page model with query strings. You should set `useQueryStringParameters` to `true` and paginator will change query string parameters and reload page on change. You can also override default query string parameters names, for each component using `pageSizeQueryString` and `currentPageQueryString` properties.
+```html
+<pagination params="{ totalItems: @Model.Total,
+            pageSize: @Model.PageSize,
+            currentPage: @Model.CurrentPage,
+            useQueryStringParameters: true}"></pagination>
+```
 
 ## API
 {% include_relative pagination/paginationApi.html %}
 
+## Defaults override.
+You can override global default values of API Properties in order to not specify it for each component separately.  
+Note that it is not necessary to overwrite all the defaults, overwrite only what you need.
+```js
+import * as ko from "knockout";
+import { registerPaginationComponent, overrideConfiguration } from "punch-ui";
+...
+function bootstrap() {
+    const paginationConfiguration = {
+        currentPageQueryString: "pageNumber",
+        icons: {
+            next: "next-icon",
+            prev: "prev-icon",
+        },
+        useCookieForPageSize: true,
+        size: "small",
+        useQueryStringParameters: true,
+        initialCurrentPage: 2,
+        pageSize: 20,
+        pageSizeOptions: [20, 50, 100],
+        pageSizeCookieName: "pageSizeCookie",
+        pageSizeQueryString: "pageSize",
+        visiblePagesCount: 10,
+    };
+    overrideConfiguration({pagination: paginationConfiguration, });
+    registerPaginationComponent();
+    const app = new App();
+    ko.applyBindings(app);
+}
+```
