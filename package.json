@@ -1,12 +1,13 @@
 {
   "name": "punch-ui",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "UI Components for KnockoutJS",
   "main": "dist/punch-ui",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "prepublish": "npm run webpack-prod && npm run lint && npm run test",
+    "prepare ": "npm run webpack-prod",
+    "prepublishOnly": "npm run lint && npm run test",
     "webpack": "webpack --mode=development",
     "webpack-prod": "webpack --mode=production",
     "build": "npm run webpack",

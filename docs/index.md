@@ -62,7 +62,7 @@ function bootstrap() {
 4. Register components and apply bindings
 ```html
 <script>
-    PunchUI.registerComponents();
+    punch.registerComponents();
     ko.applyBindings();
 </script>
 ```

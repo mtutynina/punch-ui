@@ -31,16 +31,15 @@ module.exports = (env) => {
         },
         externals: {
             knockout: 'ko',
-            knockout: 'knockout',
         },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: '[name].js',
             publicPath: 'dist/',
             library: {
-                root: "PunchUI",
-                amd: 'PunchUI',
-                commonjs: 'PunchUI',
+                root: "punch",
+                amd: 'punch',
+                commonjs: 'punch',
             },
             libraryTarget: "umd",
             globalObject: 'this',
