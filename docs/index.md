@@ -49,3 +49,20 @@ function bootstrap() {
     ko.applyBindings(app);
 }
 ```
+## Set up for Razor pages
+1. Include bootstrap styles to your page as you like, all bootstrap theme customisations will be applied to components as well.
+2. Include Knockout bundle
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+```
+3. Include Punch UI bundle
+```html
+<script src="https://cdn.jsdelivr.net/npm/punch-ui@1.0.8/dist/punch-ui.js"></script>
+```
+4. Register components and apply bindings
+```html
+<script>
+    PunchUI.registerComponents();
+    ko.applyBindings();
+</script>
+```
