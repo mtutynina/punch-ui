@@ -89,8 +89,14 @@ export class Pagination {
 
     private useQueryString: boolean;
 
+    private pageSizeQueryString: string;
+
+    private currentPageQueryString: string;
+
     constructor(private params: IPaginationParameters) {
         const config = getConfiguration().pagination;
+        this.pageSizeQueryString = params.pageSizeQueryString ?? config.pageSizeQueryString;
+        this.currentPageQueryString = params.currentPageQueryString ?? config.currentPageQueryString;
         this.useCookieForPageSize = params.useCookieForPageSize
             || (typeof params.useCookieForPageSize === "undefined" && config.useCookieForPageSize);
         this.useQueryString = params.useQueryStringParameters
@@ -229,7 +235,7 @@ export class Pagination {
         const config = getConfiguration().pagination;
         const params = this.params;
         if (this.useQueryString) {
-            const queryName = params.currentPageQueryString ?? config.currentPageQueryString;
+            const queryName = this.currentPageQueryString;
             const currentPage = this.getNumericalSearchParam(queryName);
             if (currentPage) {
                 return ko.observable(currentPage);
@@ -248,7 +254,7 @@ export class Pagination {
         const config = getConfiguration().pagination;
         const params = this.params;
         if (this.useQueryString) {
-            const queryName = params.pageSizeQueryString ?? config.pageSizeQueryString;
+            const queryName = this.pageSizeQueryString;
             const pageSize = this.getNumericalSearchParam(queryName);
             if (pageSize) {
                 return ko.observable(pageSize);
@@ -292,8 +298,7 @@ export class Pagination {
         }
 
         if (this.useQueryString) {
-            const config = getConfiguration().pagination;
-            this.updateSearchParams([{ name: config.currentPageQueryString, value: currentPage.toString() }]);
+            this.updateSearchParams([{ name: this.currentPageQueryString, value: currentPage.toString() }]);
         }
     }
 
@@ -311,8 +316,8 @@ export class Pagination {
 
         if (this.useQueryString) {
             this.updateSearchParams([
-                { name: config.pageSizeQueryString, value: pageSize.toString() },
-                { name: config.currentPageQueryString, value: config.initialCurrentPage.toString() },
+                { name: this.pageSizeQueryString, value: pageSize.toString() },
+                { name: this.currentPageQueryString, value: config.initialCurrentPage.toString() },
             ]);
         }
     }

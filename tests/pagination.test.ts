@@ -1,5 +1,7 @@
 ﻿import { Pagination, IPaginationParameters } from "../src/pagination/pagination";
 import * as ko from "knockout";
+import "jest";
+import { overrideConfiguration } from "../src/shared/config";
 
 describe("Pagination tests.", () => {
     describe("Active state tests.", () => {
@@ -108,6 +110,72 @@ describe("Pagination tests.", () => {
 
             // Assert
             expect(pager.showingCaption()).toEqual("Showing 1 - 5 of 10");
+        });
+    });
+    describe("Page size query string name", () => {
+        it("Use default configuration if not specified.", () => {
+            // Arange
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeQueryString"]).toEqual("pageSize");
+        });
+        it("Use name from parameters.", () => {
+            // Arange
+            const component = new Pagination(
+                {
+                    totalItems: 100,
+                    currentPage: 1,
+                    pageSizeQueryString: "size"
+                }
+            );
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeQueryString"]).toEqual("size");
+        });
+        it("Override name in global configuration.", () => {
+            // Arange
+            overrideConfiguration({ pagination: { pageSizeQueryString: "size" } });
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeQueryString"]).toEqual("size");
+        });
+    });
+    describe("Current page query string name", () => {
+        it("Use default configuration if not specified.", () => {
+            // Arange
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["currentPageQueryString"]).toEqual("currentPage");
+        });
+        it("Use name from parameters.", () => {
+            // Arange
+            const component = new Pagination(
+                {
+                    totalItems: 100,
+                    currentPage: 1,
+                    currentPageQueryString: "page"
+                }
+            );
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["currentPageQueryString"]).toEqual("page");
+        });
+        it("Override name in global configuration.", () => {
+            // Arange
+            overrideConfiguration({ pagination: { currentPageQueryString: "page" } });
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["currentPageQueryString"]).toEqual("page");
         });
     });
 });
