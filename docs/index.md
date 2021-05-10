@@ -1,15 +1,16 @@
 ---
 layout: home
 title: Home
-nav-order: 1
+nav_order: 1
 ---
 # Build fast. Use components.
 {: .fs-8 }
 **Punch UI** is an open source components library for faster and easier web development. Each component is build with [KnockoutJS](https://knockoutjs.com/index.html), written in [Typescript](https://www.typescriptlang.org/) and styled with [Bootstrap 5](https://getbootstrap.com/).
 {: .fs-5 .fw-300 }
 
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/mtutynina/punch-ui){: .btn .fs-5 .mb-4 .mb-md-0 }
----
+[View Components](/punch-ui/components/components.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[View it on GitHub](https://github.com/mtutynina/punch-ui){: .btn .fs-5 .mb-4 .mb-md-0 }
+
 # Getting started
 The guide assumes that you have intermediate knowledge about HTML, CSS, Typescipt and Knockout.
 The library can be used in two ways:
