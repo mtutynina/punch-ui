@@ -178,4 +178,37 @@ describe("Pagination tests.", () => {
             expect(component["currentPageQueryString"]).toEqual("page");
         });
     });
+    describe("Page size cookie name", () => {
+        it("Use default configuration if not specified.", () => {
+            // Arange
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeCookieName"]).toEqual("pageSize");
+        });
+        it("Use name from parameters.", () => {
+            // Arange
+            const component = new Pagination(
+                {
+                    totalItems: 100,
+                    currentPage: 1,
+                    pageSizeCookieName: "pageSizeCookie"
+                }
+            );
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeCookieName"]).toEqual("pageSizeCookie");
+        });
+        it("Override name in global configuration.", () => {
+            // Arange
+            overrideConfiguration({ pagination: { pageSizeCookieName: "pageSizeCookie" } });
+            const component = new Pagination({ totalItems: 100, currentPage: 1 });
+
+            // Assert
+            // eslint-disable-next-line dot-notation
+            expect(component["pageSizeCookieName"]).toEqual("pageSizeCookie");
+        });
+    });
 });

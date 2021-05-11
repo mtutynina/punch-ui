@@ -93,10 +93,13 @@ export class Pagination {
 
     private currentPageQueryString: string;
 
+    private pageSizeCookieName: string;
+
     constructor(private params: IPaginationParameters) {
         const config = getConfiguration().pagination;
         this.pageSizeQueryString = params.pageSizeQueryString ?? config.pageSizeQueryString;
         this.currentPageQueryString = params.currentPageQueryString ?? config.currentPageQueryString;
+        this.pageSizeCookieName = params.pageSizeCookieName ?? config.pageSizeCookieName;
         this.useCookieForPageSize = params.useCookieForPageSize
             || (typeof params.useCookieForPageSize === "undefined" && config.useCookieForPageSize);
         this.useQueryString = params.useQueryStringParameters
@@ -262,7 +265,7 @@ export class Pagination {
         }
 
         if (this.useCookieForPageSize) {
-            const cookieName = params.pageSizeCookieName ?? config.pageSizeCookieName;
+            const cookieName = this.pageSizeCookieName;
             const storedPageSize = getCookieByName(cookieName);
             if (storedPageSize) {
                 const pageSize = parseInt(storedPageSize, 10);
@@ -306,7 +309,7 @@ export class Pagination {
         const params = this.params;
         const config = getConfiguration().pagination;
         if (this.useCookieForPageSize) {
-            document.cookie = `${config.pageSizeCookieName}=${pageSize};path=/;`;
+            document.cookie = `${this.pageSizeCookieName}=${pageSize};path=/;`;
         }
 
         if (params.onChange) {
