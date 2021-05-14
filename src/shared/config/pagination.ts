@@ -5,8 +5,6 @@
 
 export type PaginationSize = "default" | "small";
 
-export type PaginationConfigurationOverride = Partial<PaginationConfiguration>;
-
 export interface PaginationConfiguration {
     // eslint-disable-next-line lines-around-comment
     /**
@@ -77,3 +75,5 @@ export interface PaginationConfiguration {
      */
     visiblePagesCount: number;
 }
+
+export type PaginationConfigurationOverride = Partial<PaginationConfiguration>;
