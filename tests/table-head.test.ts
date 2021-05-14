@@ -1,4 +1,4 @@
-import { ITableHeadItemParameters, TableHeadItem } from "../src/th/table-head-item";
+﻿import { ITableHeadItemParameters, TableHeadItem } from "../src/th/table-head-item";
 import "jest";
 
 describe("Table head component tests.", () => {
