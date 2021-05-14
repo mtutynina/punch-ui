@@ -1,4 +1,5 @@
-﻿import { PaginationConfiguration, PaginationConfigurationOverride } from "./config/pagination";
+﻿import { TableHeadConfiguration, TableHeadConfigurationOverride } from "./config/table-head";
+import { PaginationConfiguration, PaginationConfigurationOverride } from "./config/pagination";
 
 export interface ComponentsConfigurationOverride {
     // eslint-disable-next-line lines-around-comment
@@ -6,6 +7,11 @@ export interface ComponentsConfigurationOverride {
      * Pagination component configuration.
      */
     pagination?: PaginationConfigurationOverride;
+
+    /**
+     * Table head component configuration.
+     */
+    th?: TableHeadConfigurationOverride;
 }
 
 interface ComponentsConfiguration {
@@ -14,6 +20,11 @@ interface ComponentsConfiguration {
      * Pagination component configuration.
      */
     pagination: PaginationConfiguration;
+
+    /**
+     * Table head component configuration.
+     */
+    th: TableHeadConfiguration;
 }
 
 let config: ComponentsConfiguration = {
@@ -29,6 +40,15 @@ let config: ComponentsConfiguration = {
         size: "default",
         visiblePagesCount: 5,
     },
+    th: {
+        initialSortColumnName: "",
+        initialSortOrder: "",
+        ascOrderIcon: "bi bi-arrow-up",
+        descOrderIcon: "bi bi-arrow-down",
+        useQueryStringParameters: false,
+        sortColumnQueryString: "sortColumn",
+        sortOrderQueryString: "sortOrder",
+    }
 };
 
 export function getConfiguration(): ComponentsConfiguration {

@@ -1,0 +1,11 @@
+<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+<!-- ko if: showSortArrow() -->
+<span class="position-absolute">
+    <!-- ko if: sortOrder() === 'DESC' -->
+    <i data-bind="class: descOrderIcon"></i>
+    <!-- /ko -->
+    <!-- ko if: sortOrder() === 'ASC' -->
+    <i data-bind="class: ascOrderIcon"></i>
+    <!-- /ko -->
+</span>
+<!-- /ko -->

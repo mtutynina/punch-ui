@@ -11,7 +11,9 @@
     "webpack-prod": "webpack --mode=production",
     "build": "npm run webpack",
     "lint": "eslint --ext ts src/",
-    "lint-test": "eslint --ext ts tests/"
+    "lint-fix": "eslint --ext ts --fix src",
+    "lint-test": "eslint --ext ts tests/",
+    "lint-test-fix": "eslint --ext ts --fix tests"
   },
   "repository": {
     "type": "git",
