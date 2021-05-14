@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import { getConfiguration } from "../shared/config";
 import { PaginationIcons, PaginationSize } from "../shared/config/pagination";
-import { getCookieByName } from "../shared/helpers";
+import { getCookieByName, updateSearchParams } from "../shared/helpers";
 
 export interface IPaginationParameters {
     currentPage?: ko.Observable<number> | number;
@@ -17,11 +17,6 @@ export interface IPaginationParameters {
     useCookieForPageSize?: boolean;
     useQueryStringParameters?: boolean;
     visiblePagesCount?: number;
-}
-
-interface QueryParameter {
-    name: string;
-    value: string;
 }
 
 export class Pagination {
@@ -203,22 +198,6 @@ export class Pagination {
         return pages;
     }
 
-    private updateSearchParams(params: QueryParameter[]) {
-        const queryParams = new URLSearchParams(window.location.search);
-        for (const param of params) {
-            queryParams.set(param.name, param.value);
-        }
-
-        const spinner = document.getElementById("loading");
-        if (spinner) {
-            spinner.classList.remove("d-none");
-            spinner.classList.add("d-flex");
-        }
-
-        const query = queryParams.toString();
-        window.location.href = `${window.location.pathname}?${query}`;
-    }
-
     private getNumericalSearchParam(paramName: string): number | null {
         const queryParams = new URLSearchParams(window.location.search);
         const value = queryParams.get(paramName);
@@ -301,7 +280,7 @@ export class Pagination {
         }
 
         if (this.useQueryString) {
-            this.updateSearchParams([{ name: this.currentPageQueryString, value: currentPage.toString() }]);
+            updateSearchParams([{ name: this.currentPageQueryString, value: currentPage.toString() }]);
         }
     }
 
@@ -318,7 +297,7 @@ export class Pagination {
         }
 
         if (this.useQueryString) {
-            this.updateSearchParams([
+            updateSearchParams([
                 { name: this.pageSizeQueryString, value: pageSize.toString() },
                 { name: this.currentPageQueryString, value: config.initialCurrentPage.toString() },
             ]);
