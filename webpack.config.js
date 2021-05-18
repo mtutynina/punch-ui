@@ -30,7 +30,12 @@ module.exports = (env) => {
             extensions: ['.ts', '.html'],
         },
         externals: {
-            knockout: 'ko',
+            knockout: {
+                commonjs: 'knockout',
+                commonjs2: 'knockout',
+                amd: 'ko',
+                root: 'ko',
+            },
         },
         output: {
             path: path.join(__dirname, bundleOutputDir),

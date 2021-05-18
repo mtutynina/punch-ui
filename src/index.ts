@@ -1,7 +1,8 @@
 ﻿import { registerPaginationComponent } from "./pagination";
 import { registerTableHeadcomponent } from "./th";
 
-export { registerPaginationComponent } from "./pagination/index";
+export { registerPaginationComponent } from "./pagination";
+export { registerTableHeadcomponent } from "./th";
 export { ComponentsConfigurationOverride, overrideConfiguration } from "./shared/config";
 
 export interface RegistrationConfiguration {
