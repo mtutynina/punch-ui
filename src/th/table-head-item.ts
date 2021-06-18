@@ -53,6 +53,11 @@ export interface ITableHeadItemParameters {
      * Indicates whether should apply changes to query string.
      */
     useQueryStringParameters?: boolean;
+
+    /**
+     * Default sort order.
+     */
+    defaultSortOrder?: string;
 }
 
 export class TableHeadItem {
@@ -86,6 +91,11 @@ export class TableHeadItem {
      */
     public descOrderIcon: string;
 
+    /**
+     * Initial sort order after th click.
+     */
+    public initialSortOrder: string;
+
     constructor(private params: ITableHeadItemParameters) {
         const config = getConfiguration().th;
         this.ascOrderIcon = params.ascOrderIcon ?? config.ascOrderIcon;
@@ -96,6 +106,7 @@ export class TableHeadItem {
         this.showSortArrow = ko.computed(() => {
             return this.columnName === this.sortColumnName();
         });
+        this.initialSortOrder = params.defaultSortOrder ?? config.defaultSortOrder;
     }
 
     public sortTable() {
@@ -108,9 +119,10 @@ export class TableHeadItem {
             this.sortOrder(newSortOrder);
             this.onChange(this.sortColumnName(), newSortOrder);
         } else {
-            this.sortOrder("ASC");
+            const sortOrder = this.initialSortOrder;
+            this.sortOrder(sortOrder);
             this.sortColumnName(this.columnName);
-            this.onChange(this.columnName, "ASC");
+            this.onChange(this.columnName, sortOrder);
         }
     }
 

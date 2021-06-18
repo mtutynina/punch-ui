@@ -48,6 +48,7 @@ let config: ComponentsConfiguration = {
         useQueryStringParameters: false,
         sortColumnQueryString: "sortColumn",
         sortOrderQueryString: "sortOrder",
+        defaultSortOrder: "ASC",
     }
 };
 

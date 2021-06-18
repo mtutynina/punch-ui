@@ -38,6 +38,11 @@ export interface TableHeadConfiguration {
     sortColumnQueryString: string;
 
     additionalParametersDefaultValues?: QueryParameter[];
+
+    /**
+     * Default initial sort order.
+     */
+    defaultSortOrder: string;
 }
 
 export type TableHeadConfigurationOverride = Partial<TableHeadConfiguration>;
