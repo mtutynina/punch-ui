@@ -13,6 +13,14 @@ We will try to avoid breaking changes, but if there will be ones it will be labe
 1. TOC
 {:toc}
 
+## [1.1.3] - 6/18/2021
+### Table head Component
+- Added configuration for default sort order.
+
+## [1.1.2] - 5/18/2021
+### Table head Component
+- Added new ```th``` component, for table sorting.
+
 ## [1.1.1] - 5/12/2021
 ### Pagination
 - Fix query string names [#23](https://github.com/mtutynina/punch-ui/issues/23)
